@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<link rel="icon" type="image/png" href="assets/images/Tickety2.png">
+
+	<title>Tickety</title>
+
+	<link href="assets/css/bootstrap-grid.css" rel="stylesheet">
+	<link href="assets/css/font-awesome.css" rel="stylesheet">
+	<link href="assets/css/swiper.css" rel="stylesheet">
+	<link href="assets/css/swipebox.css" rel="stylesheet">
+	<link href="assets/css/zoomslider.css" rel="stylesheet">
+	<link href="assets/css/stylee45e.css?03" rel="stylesheet">
+	<link rel="stylesheet" href="../ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+
+	<!---
+	<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+
+	<link href="https://fonts.googleapis.com/css?family=Fira+Sans+Condensed:700,800%7COpen+Sans:400,600,700" rel="stylesheet"> 
+	-->
+	<script type="text/javascript" src="assets/js/modernizr-2.6.2.min.js"></script>
+	<script>
+	
+
+function isPhoneNumber(evt) {
+        evt = (evt) ? evt : window.event;
+        var charCode = (evt.which) ? evt.which : evt.keyCode;
+        if ( (charCode > 31 && charCode < 48) || charCode > 57) {
+			alert('Only 11 Digits Phone Numbers is allowed Please');
+            return false;
+        }
+    }
+
+function isNumber(evt) {
+        evt = (evt) ? evt : window.event;
+        var charCode = (evt.which) ? evt.which : evt.keyCode;
+        if ( (charCode > 31 && charCode < 48) || charCode > 57) {
+			alert('Only Numbers are allowed Please');
+            return false;
+        }
+    }
+
+	
+function check_length(sender_receiver){
+	var num = document.getElementById(sender_receiver).value;
+	var lent = num.toString().length;
+	if(lent < 11){
+		
+		document.getElementById(sender_receiver).value = '';
+		document.getElementById(sender_receiver).focus();
+	}
+}
+
+function tracker_check_length(sender_receiver){
+	var num = document.getElementById(sender_receiver).value;
+	var lent = num.toString().length;
+	if(lent < 4	){
+		
+		document.getElementById(sender_receiver).value = '';
+		document.getElementById(sender_receiver).focus();
+	}
+}
+</script>
+	<script>
+function loadTerminal(){
+	var given;
+	if (window.XMLHttpRequest)
+	{ 
+	given=new XMLHttpRequest();
+	}else{
+	given=new ActiveXObject("Microsoft.XMLHTTP");
+	}
+	given.onreadystatechange=function()
+	{
+		if (given.readyState==4 && given.status==200){
+			document.getElementById('destination_state').innerHTML = given.responseText;
+	}
+	}
+	var sta = document.getElementById('departing_state').value;
+	var vrb = "?option=" + sta;
+	given.open("GET.html", "post_terminal.html" + vrb, true);
+	given.send(null);
+}
+
+	function selectInstead(){
+	 alert('Use mouse to select date from date picker to avoid mistakes');
+	document.getElementById('date').value = "";
+	}
+	</script>
+	
+<script type="text/javascript">
+function submitform(){
+		var departing = document.getElementById("departing_state").value;
+		var destination = document.getElementById("destination_state").value;
+		var phone = document.getElementById("phone").value;
+		var phonelength = phone.length;
+		var date = document.getElementById("date").value;
+		var submit_btn1 = document.getElementById("submit_btn1").value;
+		var today = "2022-08-17";
+		
+		if(departing == ''){
+			alert('Please Select Departing Terminal');
+			document.getElementById("departing_state").focus();
+			die;
+		}
+		if(destination == ''){
+			alert('Please Select destination Terminal');
+			document.getElementById("destination_state").focus();
+			die;
+		}
+		if(phone == ''){
+			alert('Please Input Phone Number');
+			document.getElementById("phone").focus();
+			die;
+		}
+		if(phonelength < 11){
+			alert('Phone Number Not Complete!');
+			document.getElementById("phone").focus();
+			die;
+		}
+		if(date == ''){
+			alert('Please Input Traveling Date');
+			document.getElementById("date").focus();
+			die;
+		}
+		if(date < today){
+			alert('You have selected a date in the past!');
+			document.getElementById("date").focus();
+			die;
+		}
+
+		document.myform.submit();
+	}
+
+	function submitform2(){
+		var track_no = document.getElementById("tracking_number").value;
+		if(track_no == ''){
+			//alert('Please Enter Tracking Number');
+			document.getElementById("tracking_number").focus();
+			die;
+		}
+		document.myform.submit();
+	}
+</script>
+
+<script type="text/javascript">
+</script>
+<style>
+      marquee{
+      font-size: 20px;
+      font-weight: 800;
+      color: #fff;
+      font-family: sans-serif;
+	 
+      }
+	  @media only screen 
+and (max-width : 800px) {
+      marquee{
+      font-size: 20px;
+      font-weight: 800;
+      color: #fff;
+      font-family: sans-serif;
+	  margin-top: 66px;	
+
+      }
+	}
+.center{
+	text-align: center;
+}
+    </style>
+</head>
+<body>
+<!--- Navigation bar starts-------------->
+	<div class="navbar-gray-yellow-transparent">	<div class="nav-wrapper" id="nav-wrapper">
+		<nav class="navbar navbar-static navbar-affix" data-spy="affix">
+			<div class="container">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar top-bar"></span>
+						<span class="icon-bar middle-bar"></span>
+						<span class="icon-bar bottom-bar"></span>
+					</button>
+					<a class="logo" href="index.html"><img src="assets/images/Tickety2.png" alt="TaxiPark" height="40px" width="120px"></a>
+				</div>
+				<div id="navbar" class="navbar-collapse collapse">
+					<button type="button" class="navbar-toggle collapsed">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar top-bar"></span>
+						<span class="icon-bar middle-bar"></span>
+						<span class="icon-bar bottom-bar"></span>
+					</button>
+					<ul class="nav navbar-nav">
+						<li class="current_page_item">
+							<a href="index.html">Home</a>
+						</li>
+						
+						<li class="">
+							<a href="about.html">About Us</a>
+						</li>
+						
+						<li class="">
+							<a href="services.html">Services</a>
+						</li>
+
+						<li class="">
+							<a href="contacts.html">Contacts</a>
+						</li>
+					
+					</ul>
+				</div>		
+			</div>
+		</nav>
+	</div>
+</div><!--- Navigation bar ends-------------->
+	<div id="homepage-block-3" data-zs-speed="12000" data-zs-interval="7000" data-zs-bullets="false" data-zs-switchSpeed="4000" data-zs-src='["assets/images/_homepage-3-2-bg.jpg", "assets/images/_homepage-3-bg.jpg"]'>
+
+		<div class="container">
+			<section class="form-taxi-short">
+				<div class="container col-md-12">
+	<form name="myform" action="https://***" method="POST" style="padding-top:16px; margin-top:16px;" class="col-lg-6">
+		<div class="tabs-ui" style="background-color:#f5f5f5;">
+					<ul>
+						<li><a href="#tabs-1">Booking</a></li>
+						<li><a href="#tabs-2">Parcel</a></li>
+						<li><a href="#tabs-3">Tracking</a></li>
+						
+					</ul>
+					<hr />
+										
+										<div id="tabs-1">
+				<h4 class="aligncenter">Make <span class="yellow">Reservation</span></h4>
+						<div class="row form-with-labels">
+							<div class="col-md-6">
+								<div class="form-group">
+									<select name="departing_state" id="departing_state" class="form-control input-lg required" onchange="loadTerminal();" required>
+									<option value="">Departing Terminal</option>
+																		<option value="ABUJA">ABUJA</option>
+																		<option value="Gusau">Gusau</option>
+																		<option value="IBADAN">IBADAN</option>
+																		<option value="Imo">Imo</option>
+																		<option value="Kaduna">Kaduna</option>
+																		<option value="kano">Kano</option>
+																		<option value="Lagos">Lagos</option>
+																		<option value="Lagos">Ogun</option>
+																		<option value="Lagos">Jos</option>
+																		<option value="Lagos">Owerri</option>
+									 
+									</select><span class="fa fa-map-marker"></span>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<select name="destination_state" id="destination_state" value="" class="form-control input-lg required" required>
+									<option value="">Destination Terminal</option>
+									<option value="ABUJA">ABUJA</option>
+									<option value="Gusau">Gusau</option>
+									<option value="IBADAN">IBADAN</option>
+									<option value="Imo">Imo</option>
+									<option value="Kaduna">Kaduna</option>
+									<option value="kano">Kano</option>
+									<option value="Lagos">Lagos</option>
+									<option value="Lagos">Ogun</option>
+									<option value="Lagos">Jos</option>
+									<option value="Lagos">Owerri</option>
+									
+									</select><span class="fa fa-map-marker"></span>
+								</div>
+							</div>
+						</div>
+						<div class="row form-with-labels">							
+							<div class="col-md-6">
+								<div class="form-group">
+									<input type="text" name="phone" id="phone" placeholder="Phone Number" maxlength="11" class="form-control input-lg required" onkeypress="return isPhoneNumber(event);" onblur="check_length('tracker')" required ><span class="fa fa-phone"></span>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<input type="date" name="date" value="2022-08-17"  id="date" min="2022-08-17" onkeypress="selectInstead();" required class="form-control input-lg" required >
+								</div>
+							</div>
+						</div>
+						<input name="submit_btn1" id="submit_btn1" type="button" value="Search" onclick="submitform();" class="btn btn-lg btn-yellow aligncenter" >
+						</div>
+
+						<div id="tabs-2">
+				<h4 class="aligncenter">Parcel <span class="yellow">Shipment</span></h4>
+						
+						<div class="row form-with-labels">							
+							<div class="col-md-12">
+								<div class="form-group">
+									<br><input type="text" name="Weight" id="tracking_number" placeholder="Input Weight in Kg" class="form-control input-lg required" maxlength="11" required ><span class="fa fa-track"></span>
+									<br><select name="Parcel Type" id="departing_state" class="form-control input-lg required" onchange="loadTerminal();" required>
+											<option value="">Parcel Type</option>
+																				<option value="ABUJA">Fragile</option>
+																				<option value="IBADAN">Food</option>
+																				<option value="Imo">Document</option>
+											</select><span class=""></span>
+											<br><input type="text" name="Parcel description" id="tracking_number" placeholder="Describe your parcel" class="form-control input-lg required" maxlength="11" required ><span class="fa fa-track"></span>
+								</div>
+							</div>
+						</div>
+						<input type="button" value="Send" onclick="submitform2();" class="btn btn-lg btn-black aligncenter" >
+						<input type="hidden" id="type" name="type" value="2" class="ajaxField">
+						</div>
+
+
+						<div id="tabs-3">
+								<h4 class="aligncenter">Track <span class="yellow">Shipment</span></h4>
+										
+										<div class="row form-with-labels">							
+											<div class="col-md-12">
+												<div class="form-group">
+													<input type="text" name="tracking_number" id="tracking_number" placeholder="Enter Tracking Number" class="form-control input-lg required" maxlength="11" required ><span class="fa fa-track"></span>
+												</div>
+											</div>
+										</div>
+										<input type="button" value="Track it!" onclick="submitform2();" class="btn btn-lg btn-black aligncenter" >
+										<input type="hidden" id="type" name="type" value="2" class="ajaxField">
+							</div>
+
+			
+				</form>
+						</div>
+						<img src="assets/images/TicketyInner.png" margin="50px" alt="inner" width="50%" height="50%" float="right">
+						<a href="https:#" class="app-badge app-store-button"><img width="125" height="50" src="assets/images/TicketyApple.png" alt="Download Bolt app in App Store"></a>
+					<a href="https:#" class="app-badge play-store-button"><img width="125" height="50" src="assets/images/TicketyGoogle.png" alt="Download Bolt app in Google Play"></a>
+
+				</div>
+				</div>
+			</section>
+
+		</div>
+	</div>
+	
+	<section id="testimonials">
+		<hr class="lg">
+		<div class="container">
+			<h2 class="yellow">Trending Routes</h2>
+			<div class="swiper-container row" id="testimonials-slider">
+				<div class="swiper-wrapper">
+						<div class="col-md-4 col-sm-6 swiper-slide">
+						<div class="inner matchHeight">
+							<div class="text">
+								<p class="name">
+									Abuja Terminal											<br />
+														To 
+											<br />
+									Lagos Terminal								</p>
+							</div>
+							<div class="quote">
+								<span class="fa fa-bus"></span>
+								<div class="name">Abuja To Lagos</div>
+								<img src="assets/images/_client-1.jpg" alt="Client">
+							</div>
+						</div>
+					</div>
+						<div class="col-md-4 col-sm-6 swiper-slide">
+						<div class="inner matchHeight">
+							<div class="text">
+								<p class="name">
+									Abuja Terminal											<br />
+														To 
+											<br />
+									Lagos Terminal								</p>
+							</div>
+							<div class="quote">
+								<span class="fa fa-bus"></span>
+								<div class="name">Abuja To Lagos</div>
+								<img src="assets/images/_client-1.jpg" alt="Client">
+							</div>
+						</div>
+					</div>
+						<div class="col-md-4 col-sm-6 swiper-slide">
+						<div class="inner matchHeight">
+							<div class="text">
+								<p class="name">
+									Kaduna Terminal											<br />
+														To 
+											<br />
+									Lagos Terminal								</p>
+							</div>
+							<div class="quote">
+								<span class="fa fa-bus"></span>
+								<div class="name">Kaduna To Lagos</div>
+								<img src="assets/images/_client-1.jpg" alt="Client">
+							</div>
+						</div>
+					</div>
+						<div class="col-md-4 col-sm-6 swiper-slide">
+						<div class="inner matchHeight">
+							<div class="text">
+								<p class="name">
+									KADUNA Terminal											<br />
+														To 
+											<br />
+									Lagos Terminal								</p>
+							</div>
+							<div class="quote">
+								<span class="fa fa-bus"></span>
+								<div class="name">KADUNA To Lagos</div>
+								<img src="assets/images/_client-1.jpg" alt="Client">
+							</div>
+						</div>
+					</div>
+						<div class="col-md-4 col-sm-6 swiper-slide">
+						<div class="inner matchHeight">
+							<div class="text">
+								<p class="name">
+									Kano Terminal											<br />
+														To 
+											<br />
+									Lagos Terminal								</p>
+							</div>
+							<div class="quote">
+								<span class="fa fa-bus"></span>
+								<div class="name">Kano To Lagos</div>
+								<img src="assets/images/_client-1.jpg" alt="Client">
+							</div>
+						</div>
+					</div>
+						<div class="col-md-4 col-sm-6 swiper-slide">
+						<div class="inner matchHeight">
+							<div class="text">
+								<p class="name">
+									Kano Terminal											<br />
+														To 
+											<br />
+									Lagos Terminal								</p>
+							</div>
+							<div class="quote">
+								<span class="fa fa-bus"></span>
+								<div class="name">Kano To Lagos</div>
+								<img src="assets/images/_client-1.jpg" alt="Client">
+							</div>
+						</div>
+					</div>
+					</div>
+				<div class="arrows">
+					<a href="#" class="arrow-left fa fa-caret-left"></a>
+					<a href="#" class="arrow-right fa fa-caret-right"></a>
+				</div>				
+			</div>
+		</div>
+	</section>
+	<section id="testimonials">
+			<hr class="lg">
+			<div class="container">
+				<div class="block container" text-align="justify-content-center">
+					<h2 class="block-title mt-40 mt-md-100" text-align="justify-content-center">Ready to ride?</h2>
+					<h2 class="block-title mt-40 mt-md-100" text-align="justify-content-center">
+					<a href="https:#" class="app-badge app-store-button"><img width="200" height="75" src="assets/images/TicketyApple.png" alt="Download Bolt app in App Store"></a>
+					<a href="https:#" class="app-badge play-store-button"><img width="200" height="75" src="assets/images/TicketyGoogle.png" alt="Download Bolt app in Google Play"></a></div>
+					<br><p class="center">Click The button Above to Download Our App to Get fully On Board. Or</p> <h2 class="yellow"><a href="signup - Copy.html">Sign Up. </a></h2>
+				</h2>
+			</div>
+		</section>
+		<!--- Footer Contact bar starts-------------->
+		<section id="block-footer">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 col-ms-12">
+<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3272.6778199504956!2d3.3801563141674813!3d6.473513895316935!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x103b8b79a8a12e87%3A0xda54263043182a2!2sNew+Iddo+Park+And+Ultra-Modern+Shopping+Complex!5e1!3m2!1sen!2sng!4v1540666523709" width="100%" height="300" frameborder="0" style="border:0" allowfullscreen></iframe>				</div>
+				
+				<div class="col-lg-6 col-md-6 col-sm-6 col-ms-6">					
+					<h4>Contact us</h4>
+					<p><span class="yellow">Address:</span> ATBU Yelwa Campus Bauchi</p>
+
+					<ul class="address">
+						<li><span class="fa fa-phone"></span>+234 816 971 0173</li>
+						<li><span class="fa fa-envelope"></span>info@tickety.com.ng</li>
+					</ul>
+					<div class="social-small social-yellow">
+						<a href="#" class="fa fa-twitter"></a>
+						<a href="#" class="fa fa-facebook"></a>
+						<a href="#" class="fa fa-instagram"></a>
+						<a href="#" class="fa fa-google-plus"></a>
+						<a href="webmail.html" class="fa fa-envelope"></a>
+						<a href="#" class="fa fa-lock"></a>
+					</div>
+				</div>		
+			</div>
+		</div>
+	</section>		<!--- Footer Contact bar ends-------------->
+
+		<!--- Footer bar starts-------------->
+		<footer>
+		<div class="container">
+			<a href="http://****">Team Atbu</a> 2022 © All Rights Reserved | Powered By: <a href="***" title="Team Atbu"></a>
+			<a href="#" class="go-top hidden-xs hidden-ms"></a>
+			
+						<a href="#" class="fa fa-lock" style="float:right;"></a>
+		</div>
+	</footer>		<!--- Footer bar ends-------------->
+
+
+	<script>var base_href = 'index.html';</script>
+	<script type="text/javascript" src="assets/js/jquery.min.js"></script>
+	<!---
+	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>	
+	--->
+	<script type="text/javascript" src="assets/js/plugins.min.js"></script>		
+	
+    <script src="assets/js/map-style.js"></script>
+	<!---
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCTRSHf8sjMCfK9PHPJxjJkwrCIo5asIzE"></script>	
+	--->
+	<script type="text/javascript" src="assets/js/scripts.js"></script>
+
+	<!---
+	<script>
+	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+	  ga('create', 'UA-91006724-1', 'auto');
+	  ga('send', 'pageview');
+	</script>
+	--->
+</body>
+</html>
